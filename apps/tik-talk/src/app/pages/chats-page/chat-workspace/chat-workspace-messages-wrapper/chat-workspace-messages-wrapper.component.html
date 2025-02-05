@@ -1,0 +1,10 @@
+@for (group of messageGroup; track group.date) {
+<p class="message__date">{{ group.date | date : 'dd.MM.yyyy' }}</p>
+@for (message of group.messages; track message.id) {
+<app-chat-workspace-message [message]="message"></app-chat-workspace-message>
+} }
+
+<app-message-input
+  class="message__input"
+  (created)="onSendMessage($event)"
+></app-message-input>
