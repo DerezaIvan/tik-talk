@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Chat, LastMessageRes, Message } from '../interfaces/chats.interface';
-import { ProfileService } from './profile.service';
+import { ProfileService } from '../../../../../../libs/profile/src/lib/data/services/profile.service';
 import { map } from 'rxjs';
 
 @Injectable({
@@ -47,7 +47,7 @@ export class ChatsService {
               : chat.userFirst,
           messages: patchedMessages,
         };
-      })
+      }),
     );
   }
 
@@ -59,7 +59,7 @@ export class ChatsService {
         params: {
           message,
         },
-      }
+      },
     );
   }
 }

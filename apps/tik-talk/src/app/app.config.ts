@@ -4,7 +4,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authTokenInterceptor } from './auth/auth.interseptor';
+import { authTokenInterceptor } from '@tt/auth';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -1,14 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { AvatarUploadComponent } from '../../settings-pages/avatar-upload/avatar-upload.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProfileService } from '../../../data/services/profile.service';
 import { debounceTime, startWith, switchMap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ProfileService } from '@tt/profile';
 
 @Component({
   selector: 'app-profile-filters',
   standalone: true,
-  imports: [AvatarUploadComponent, FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './profile-filters.component.html',
   styleUrl: './profile-filters.component.scss',
 })
@@ -30,7 +29,7 @@ export class ProfileFiltersComponent {
         switchMap((formValue) => {
           return this.profileService.filterProfiles(formValue);
         }),
-        takeUntilDestroyed()
+        takeUntilDestroyed(),
       )
       .subscribe();
   }

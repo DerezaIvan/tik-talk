@@ -5,10 +5,10 @@ import {
   Output,
   Renderer2,
 } from '@angular/core';
-import { ProfileService } from '../../data/services/profile.service';
-import { AvatarCircleComponent } from '../avatar-circle/avatar-circle.component';
+import { ProfileService } from '../../../../../../libs/profile/src/lib/data/services/profile.service';
+import { AvatarCircleComponent } from '../../../../../../libs/common-ui/src/lib/components/avatar-circle/avatar-circle.component';
 import { FormsModule } from '@angular/forms';
-import { SvgIconComponent } from '../svg-icon/svg-icon.component';
+import { SvgIconComponent } from '../../../../../../libs/common-ui/src/lib/components/svg-icon/svg-icon.component';
 import { CommonModule } from '@angular/common';
 
 @Component({

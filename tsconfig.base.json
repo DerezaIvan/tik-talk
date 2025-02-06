@@ -17,8 +17,27 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": ["ES2022", "dom"],
-    "paths": {},
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "paths": {
+      "@tt/auth": [
+        "libs/auth/src/index.ts"
+      ],
+      "@tt/common-ui": [
+        "libs/common-ui/src/index.ts"
+      ],
+      "@tt/posts": [
+        "libs/posts/src/index.ts"
+      ],
+      "@tt/profile": [
+        "libs/profile/src/index.ts"
+      ],
+      "@tt/shared": [
+        "libs/shared/src/index.ts"
+      ]
+    },
     "baseUrl": ".",
     "rootDir": "."
   },
@@ -28,5 +47,8 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

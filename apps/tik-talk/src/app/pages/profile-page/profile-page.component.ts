@@ -1,15 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { ProfileHeaderComponent } from '../../common-ui/profile-header/profile-header.component';
-import { ProfileService } from '../../data/services/profile.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { firstValueFrom, switchMap } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
-import { SvgIconComponent } from '../../common-ui/svg-icon/svg-icon.component';
-import { ImgUrlPipe } from '../../helpers/pipes/img-url.pipe';
-import { PostFeedComponent } from './post-feed/post-feed.component';
 import { ChatsService } from '../../data/services/chats.service';
 import { ResizeHeightDirective } from '../../common-ui/directives/resize-height.directive';
+import { PostFeedComponent } from '@tt/posts';
+import { ImgUrlPipe, SvgIconComponent } from '@tt/common-ui';
+import { ProfileService } from '@tt/profile';
 
 @Component({
   selector: 'app-profile-page',
@@ -42,7 +41,7 @@ export class ProfilePageComponent {
       this.isMyPage.set(id === 'me' || id === this.profileService.me()?.id);
       if (id === 'me') return this.me$;
       return this.profileService.getAccount(id);
-    })
+    }),
   );
 
   async sendMessage(userId: number) {
