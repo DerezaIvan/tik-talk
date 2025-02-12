@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { map, tap } from 'rxjs';
-import { Pageble } from '@tt/shared';
-import { Profile } from '../interfaces/profile.interfaces';
+import { GlobalStoreService, Pageble } from '@tt/shared';
+import { Profile } from '@tt/interfaces/profile';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { Profile } from '../interfaces/profile.interfaces';
 export class ProfileService {
   http = inject(HttpClient);
   baseApiUrl = 'https://icherniakov.ru/yt-course/';
-
+  #globalStoreService = inject(GlobalStoreService);
   me = signal<Profile | null>(null);
   filteredProfiles = signal<Profile[]>([]);
 
@@ -19,9 +19,12 @@ export class ProfileService {
   }
 
   getMe() {
-    return this.http
-      .get<Profile>(`${this.baseApiUrl}account/me`)
-      .pipe(tap((res) => this.me.set(res)));
+    return this.http.get<Profile>(`${this.baseApiUrl}account/me`).pipe(
+      tap((res) => {
+        this.me.set(res);
+        this.#globalStoreService.me.set(res);
+      }),
+    );
   }
 
   getAccount(id: string) {

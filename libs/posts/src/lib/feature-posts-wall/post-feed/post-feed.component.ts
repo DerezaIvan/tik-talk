@@ -1,9 +1,9 @@
 import { Component, inject, input } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { PostInputComponent } from '../../ui';
-import { PostService } from '../../data';
-import { ProfileService } from '@tt/profile';
 import { PostComponent } from '../post/post.component';
+import { PostService } from '../../data/services/post.service';
+import { GlobalStoreService } from '@tt/shared';
 
 @Component({
   selector: 'app-post-feed',
@@ -21,7 +21,7 @@ export class PostFeedComponent {
     firstValueFrom(this.postService.fetchPosts());
   }
 
-  profile = inject(ProfileService).me;
+  profile = inject(GlobalStoreService).me;
 
   isCommentInput = input<boolean>(false);
 
