@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component';
 import { AvatarUploadComponent } from '../../ui/avatar-upload/avatar-upload.component';
 import { ProfileService } from '../../data/services/profile.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings-pages',
@@ -15,6 +16,7 @@ import { ProfileService } from '../../data/services/profile.service';
 export class SettingsPagesComponent {
   fb = inject(FormBuilder);
   profileService = inject(ProfileService);
+  route = inject(Router);
 
   @ViewChild(AvatarUploadComponent) avatarUploader!: AvatarUploadComponent;
 
@@ -56,6 +58,7 @@ export class SettingsPagesComponent {
         stack: this.splitStack(this.form.value.stack),
       }),
     );
+    this.route.navigate(['/profile/me']);
   }
 
   splitStack(stack: string | null | string[] | undefined) {
