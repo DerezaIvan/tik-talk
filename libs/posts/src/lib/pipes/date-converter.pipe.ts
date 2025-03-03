@@ -8,6 +8,7 @@ export class DateConverterPipe implements PipeTransform {
   transform(value: string | null) {
     if (!value) return 'Не удалось опеределить дату';
     const date = new Date(value);
+    // здесь нужно поставить локализацию что бы корректно отображать время, можно использовать Luxon
     date.setHours(date.getHours() + 3);
     const newDate = new Date();
 
