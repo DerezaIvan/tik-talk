@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { ChangeDetectionStrategy, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'dateConverterPipe',

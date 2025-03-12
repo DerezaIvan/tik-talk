@@ -46,6 +46,19 @@
   }
 }
 
+.primary-count {
+  background-color: var(--primary-color);
+  width: 26px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--dark-color);
+}
+
 .sidebar__footer {
   margin-top: auto;
   background-color: var(--dark-hover-color);

@@ -1,11 +1,19 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { AvatarCircleComponent, SvgIconComponent } from '@tt/common-ui';
 import { CommentComponent, PostInputComponent } from '../../ui';
 import { DateConverterPipe } from '../../pipes/date-converter.pipe';
 import { Post, PostComment } from '@tt/interfaces/posts/post.interface';
-import { PostService } from '../../data/services/post.service';
 import { GlobalStoreService } from '@tt/shared';
+import { Store } from '@ngrx/store';
+import { postsActions, selectComments } from '@tt/posts';
 
 @Component({
   selector: 'app-post',
@@ -19,37 +27,35 @@ import { GlobalStoreService } from '@tt/shared';
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostComponent implements OnInit {
   post = input<Post>();
-
-  comments = signal<PostComment[]>([]);
-
   profile = inject(GlobalStoreService).me;
+  comments!: Signal<PostComment[]>;
+  store = inject(Store);
 
-  postService = inject(PostService);
+  commentsTwo = computed(() => {
+    if (this.comments()?.length > 0) {
+      return this.comments();
+    }
+    return this.post()?.comments;
+  });
 
-  async ngOnInit() {
-    this.comments.set(this.post()!.comments);
+  ngOnInit() {
+    this.store.dispatch(postsActions.fetchPosts({}));
+    this.comments = this.store.selectSignal(selectComments(this.post()!.id));
   }
 
   async onCreated(commentText: string) {
-    firstValueFrom(
-      this.postService.createComment({
-        text: commentText,
-        authorId: this.profile()!.id,
-        postId: this.post()!.id,
+    this.store.dispatch(
+      postsActions.createComment({
+        comment: {
+          text: commentText,
+          authorId: this.profile()!.id,
+          postId: this.post()!.id,
+        },
       }),
-    )
-      .then(async () => {
-        const comments = await firstValueFrom(
-          this.postService.getCommentsByPostId(this.post()!.id),
-        );
-        this.comments.set(comments);
-      })
-      .catch((error) => {
-        console.error('Ошибка при создании комментария:', error);
-      });
-    return;
+    );
   }
 }

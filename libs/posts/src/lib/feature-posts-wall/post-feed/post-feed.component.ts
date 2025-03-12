@@ -1,9 +1,14 @@
-import { Component, inject, input } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
 import { PostInputComponent } from '../../ui';
 import { PostComponent } from '../post/post.component';
-import { PostService } from '../../data/services/post.service';
 import { GlobalStoreService } from '@tt/shared';
+import { Store } from '@ngrx/store';
+import { postsActions, selectPosts } from '../../data';
 
 @Component({
   selector: 'app-post-feed',
@@ -11,14 +16,14 @@ import { GlobalStoreService } from '@tt/shared';
   imports: [PostInputComponent, PostComponent],
   templateUrl: './post-feed.component.html',
   styleUrls: ['./post-feed.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostFeedComponent {
-  postService = inject(PostService);
-
-  feed = this.postService.posts;
+  store = inject(Store);
+  feed = this.store.selectSignal(selectPosts);
 
   constructor() {
-    firstValueFrom(this.postService.fetchPosts());
+    this.store.dispatch(postsActions.fetchPosts({}));
   }
 
   profile = inject(GlobalStoreService).me;
@@ -27,18 +32,14 @@ export class PostFeedComponent {
 
   onCreatePost(postText: string) {
     if (!postText) return;
-    firstValueFrom(
-      this.postService.createPost({
-        title: 'Клевый пост',
-        content: postText,
-        authorId: this.profile()!.id,
+    this.store.dispatch(
+      postsActions.createPost({
+        post: {
+          title: 'Клевый пост',
+          content: postText,
+          authorId: this.profile()!.id,
+        },
       }),
-    )
-      .then(() => {
-        postText = '';
-      })
-      .catch((error) => {
-        console.error('Ошибка при создании поста:', error);
-      });
+    );
   }
 }

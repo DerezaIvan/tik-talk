@@ -1,4 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DndDirective, SvgIconComponent } from '@tt/common-ui';
 import { ProfileService } from '@tt/profile';
@@ -9,6 +14,7 @@ import { ProfileService } from '@tt/profile';
   imports: [SvgIconComponent, DndDirective, FormsModule],
   templateUrl: './avatar-upload.component.html',
   styleUrl: './avatar-upload.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AvatarUploadComponent {
   avatarUser = inject(ProfileService).me()?.avatarUrl;

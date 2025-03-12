@@ -4,6 +4,11 @@
   flex-direction: column;
   gap: 12px;
   overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+  }
 }
 
 .message__input {

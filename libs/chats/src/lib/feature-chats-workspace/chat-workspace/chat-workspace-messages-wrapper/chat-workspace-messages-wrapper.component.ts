@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   inject,
@@ -7,7 +8,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { firstValueFrom, Subscription, switchMap, timer } from 'rxjs';
+import { Subscription, switchMap, timer } from 'rxjs';
 import { ChatWorkspaceMessageComponent } from './chat-workspace-message/chat-workspace-message.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Chat, ChatsService } from '@tt/chats';
@@ -24,6 +25,7 @@ import { DateMessagePipe } from '../../../data/pipes/date-message.pipe';
   ],
   templateUrl: './chat-workspace-messages-wrapper.component.html',
   styleUrl: './chat-workspace-messages-wrapper.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatWorkspaceMessagesWrapperComponent
   implements OnInit, OnChanges
@@ -79,9 +81,6 @@ export class ChatWorkspaceMessagesWrapperComponent
   }
 
   async onSendMessage(messageText: string) {
-    await firstValueFrom(
-      this.chatsService.senMessage(this.chat().id, messageText),
-    );
-    // await firstValueFrom(this.chatsService.getChatById(this.chat().id));
+    this.chatsService.wsAdapter.sendMessage(messageText, this.chat().id);
   }
 }

@@ -1,8 +1,14 @@
-import { Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, startWith, switchMap } from 'rxjs';
+import { debounceTime, startWith } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ProfileService } from '../../data/services/profile.service';
+import { Store } from '@ngrx/store';
+import { profileActions } from '../../data';
 
 @Component({
   selector: 'app-profile-filters',
@@ -10,10 +16,11 @@ import { ProfileService } from '../../data/services/profile.service';
   imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './profile-filters.component.html',
   styleUrl: './profile-filters.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileFiltersComponent {
+export class ProfileFiltersComponent implements OnInit {
   fb = inject(FormBuilder);
-  profileService = inject(ProfileService);
+  store = inject(Store);
 
   searchForm = this.fb.group({
     firstName: [''],
@@ -23,14 +30,20 @@ export class ProfileFiltersComponent {
 
   constructor() {
     this.searchForm.valueChanges
-      .pipe(
-        startWith({}),
-        debounceTime(300),
-        switchMap((formValue) => {
-          return this.profileService.filterProfiles(formValue);
-        }),
-        takeUntilDestroyed(),
-      )
-      .subscribe();
+      .pipe(startWith({}), debounceTime(300), takeUntilDestroyed())
+      .subscribe((formValue) => {
+        localStorage.setItem('filters', JSON.stringify(formValue));
+        this.store.dispatch(
+          profileActions.filterEvents({ filters: formValue }),
+        );
+      });
+  }
+
+  ngOnInit() {
+    const saveValueInput = localStorage.getItem('filters');
+    if (saveValueInput) {
+      const filters = JSON.parse(saveValueInput);
+      this.searchForm.patchValue(filters);
+    }
   }
 }

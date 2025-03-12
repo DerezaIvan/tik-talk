@@ -3,4 +3,8 @@
   grid-gap: 16px;
   overflow-y: scroll;
   padding-top: 24px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
