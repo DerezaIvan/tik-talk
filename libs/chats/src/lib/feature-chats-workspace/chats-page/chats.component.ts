@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ChatsListComponent } from '../chats-list/chats-list.component';
-import { ResizeHeightDirective } from '@tt/common-ui';
 
 @Component({
   selector: 'app-chats-page',

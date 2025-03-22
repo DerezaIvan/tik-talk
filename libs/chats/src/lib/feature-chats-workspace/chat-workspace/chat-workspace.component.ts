@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ChatWorkspaceHeaderComponent } from './chat-workspace-header/chat-workspace-header.component';
-import { ChatWorkspaceMessagesWrapperComponent } from './chat-workspace-messages-wrapper/chat-workspace-messages-wrapper.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, of, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { ResizeHeightDirective } from '@tt/common-ui';
-import { ChatsService } from '../../data/services/chats.service';
+import { ChatsService } from '../../data';
+import { ChatWorkspaceHeaderComponent } from './chat-workspace-header/chat-workspace-header.component';
+import { ChatWorkspaceMessagesWrapperComponent } from './chat-workspace-messages-wrapper/chat-workspace-messages-wrapper.component';
 
 @Component({
   selector: 'app-chat-workspace',

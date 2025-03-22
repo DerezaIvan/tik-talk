@@ -31,6 +31,9 @@
       "@tt/common-ui": [
         "libs/common-ui/src/index.ts"
       ],
+      "@tt/experimental": [
+        "libs/experimental/src/index.ts"
+      ],
       "@tt/interfaces/*": [
         "libs/interfaces/src/lib/*"
       ],
@@ -45,9 +48,6 @@
       ],
       "@tt/shared": [
         "libs/shared/src/index.ts"
-      ],
-      "@tt/experimental": [
-        "libs/experimental/src/index.ts"
       ]
     },
     "baseUrl": ".",

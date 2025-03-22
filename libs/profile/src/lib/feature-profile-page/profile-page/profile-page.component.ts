@@ -14,8 +14,8 @@ import {
   ResizeHeightDirective,
   SvgIconComponent,
 } from '@tt/common-ui';
-import { ProfileHeaderComponent } from '../../ui/profile-header/profile-header.component';
 import { ProfileService } from '../../data';
+import { ProfileHeaderComponent } from '../../ui';
 
 @Component({
   selector: 'app-profile-page',

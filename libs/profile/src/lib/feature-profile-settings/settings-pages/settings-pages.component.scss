@@ -12,7 +12,6 @@
   padding: 32px;
   border: 1px solid var(--light-color);
   background-color: var(--dark-color);
-  height: calc(100dvh - (24px * 4));
 }
 
 .profile-form {
@@ -24,10 +23,4 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-}
-
-.profile-label {
-}
-
-.profile-input {
 }

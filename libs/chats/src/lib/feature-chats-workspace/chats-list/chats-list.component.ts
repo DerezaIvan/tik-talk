@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ChatsBtnComponent } from '../chats-btn/chats-btn.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ChatsService } from '../../data/services/chats.service';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { map, startWith, switchMap } from 'rxjs';
 import { ResizeHeightDirective } from '@tt/common-ui';
+import { ChatsBtnComponent } from '../chats-btn/chats-btn.component';
+import { ChatsService } from '../../data';
 
 @Component({
   selector: 'app-chats-list',

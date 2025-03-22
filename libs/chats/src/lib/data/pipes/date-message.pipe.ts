@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { formatDate } from '@angular/common';
+import { DateTime } from 'luxon';
 
 @Pipe({
   name: 'dateMessagePipe',
@@ -7,17 +7,11 @@ import { formatDate } from '@angular/common';
 })
 export class DateMessagePipe implements PipeTransform {
   transform(value: Date | string): string {
-    const today = new Date();
-    const inputDate = new Date(value);
+    const today = DateTime.now().startOf('day');
+    const inputDate = DateTime.fromJSDate(new Date(value)).startOf('day');
 
-    if (
-      today.getFullYear() === inputDate.getFullYear() &&
-      today.getMonth() === inputDate.getMonth() &&
-      today.getDate() === inputDate.getDate()
-    ) {
-      return 'Сегодня';
-    } else {
-      return formatDate(value, 'dd.MM.yyyy', 'en');
-    }
+    return inputDate.equals(today)
+      ? 'Сегодня'
+      : inputDate.toFormat('dd.MM.yyyy');
   }
 }

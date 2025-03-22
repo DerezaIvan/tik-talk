@@ -1,12 +1,12 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { map, switchMap, tap } from 'rxjs';
 import {
   CommentCreateDTO,
   Post,
   PostComment,
   PostCreateDTO,
-} from '../../../../../interfaces/src/lib/posts/post.interface';
-import { map, switchMap, tap } from 'rxjs';
+} from '@tt/interfaces/posts/post.interface';
 
 @Injectable({
   providedIn: 'root',

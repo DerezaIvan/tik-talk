@@ -11,9 +11,8 @@ import {
 import { Subscription, switchMap, timer } from 'rxjs';
 import { ChatWorkspaceMessageComponent } from './chat-workspace-message/chat-workspace-message.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Chat, ChatsService } from '@tt/chats';
-import { MessageInputComponent } from '../../../ui/message-input/message-input.component';
-import { DateMessagePipe } from '../../../data/pipes/date-message.pipe';
+import { Chat, ChatsService, DateMessagePipe } from '../../../data';
+import { MessageInputComponent } from '../../../ui';
 
 @Component({
   selector: 'app-chat-workspace-messages-wrapper',

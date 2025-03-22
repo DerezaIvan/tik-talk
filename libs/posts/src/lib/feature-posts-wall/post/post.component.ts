@@ -43,7 +43,6 @@ export class PostComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.store.dispatch(postsActions.fetchPosts({}));
     this.comments = this.store.selectSignal(selectComments(this.post()!.id));
   }
 

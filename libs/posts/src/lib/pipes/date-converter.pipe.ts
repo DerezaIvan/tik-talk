@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
+import { DateTime } from 'luxon';
 
 @Pipe({
   name: 'dateConverterPipe',
@@ -7,17 +8,11 @@ import { ChangeDetectionStrategy, Pipe, PipeTransform } from '@angular/core';
 export class DateConverterPipe implements PipeTransform {
   transform(value: string | null) {
     if (!value) return 'Не удалось опеределить дату';
-    const date = new Date(value);
-    // здесь нужно поставить локализацию что бы корректно отображать время, можно использовать Luxon
-    date.setHours(date.getHours() + 3);
-    const newDate = new Date();
+    const date = DateTime.fromISO(value, { zone: 'utc' }).toLocal();
+    const newDate = DateTime.local();
 
-    const diffMs = Math.round(newDate.getTime() - date.getTime());
-    if (isNaN(diffMs) || diffMs < 0) {
-      return 'Некорректная дата';
-    }
-
-    const seconds = Math.round(diffMs / 1000);
+    const diffMs = newDate.diff(date, 'seconds').seconds;
+    const seconds = Math.round(diffMs);
     const minutes = Math.round(seconds / 60);
     const hours = Math.round(minutes / 60);
     const days = Math.round(hours / 24);

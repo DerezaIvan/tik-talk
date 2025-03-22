@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { AbstractControl, FormsModule, ValidatorFn } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +9,11 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './app.component.scss',
   imports: [RouterOutlet, FormsModule],
 })
+
+// const validate: ValidatorFn = (control: AbstractControl) => {
+//   return null;
+//
+// };
 export class AppComponent {
   title = 'tik-talk';
 }

@@ -32,15 +32,14 @@
       <app-avatar-upload></app-avatar-upload>
     </label>
 
-    <label class="tt-form-label">
-      <span class="tt-form-label__text">Навыки(стэк)</span>
-      <input type="text" class="tt-form-input" formControlName="stack" />
-    </label>
+    <tt-stack-input formControlName="stack"></tt-stack-input>
+
+    <tt-address-input formControlName="city"></tt-address-input>
   </div>
 
   <div>
     <div>
-      <button class="btn" (click)="onSave()">Сохранить</button>
+      <button class="btn mb16" (click)="onSave()">Сохранить</button>
     </div>
   </div>
 </form>

@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  OnInit,
   signal,
 } from '@angular/core';
 import {
@@ -12,16 +13,17 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@tt/auth';
+import { SvgIconComponent, TtInputComponent } from '@tt/common-ui';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TtInputComponent, SvgIconComponent],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit {
   authService = inject(AuthService);
   router = inject(Router);
 
@@ -31,6 +33,12 @@ export class LoginPageComponent {
     username: new FormControl(null, Validators.required),
     password: new FormControl(null, Validators.required),
   });
+
+  ngOnInit() {
+    this.form.valueChanges.subscribe((value) => {
+      console.log(value);
+    });
+  }
 
   onSubmit() {
     if (this.form.valid) {

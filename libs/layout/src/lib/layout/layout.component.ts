@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
 import { ResizeHeightDirective } from '@tt/common-ui';
+import { SidebarComponent } from '../sidebar';
 
 @Component({
   selector: 'app-layout',

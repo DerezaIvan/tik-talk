@@ -6,15 +6,14 @@ import {
   OnInit,
 } from '@angular/core';
 import { AsyncPipe, NgClass, NgForOf } from '@angular/common';
-import { SubscriberCardComponent } from './susbscriber-card/subscriber-card.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { firstValueFrom, Subscription, timer } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 import { ImgUrlPipe, SvgIconComponent } from '@tt/common-ui';
 import { ProfileService } from '@tt/profile';
-import { ChatsService } from '@tt/chats';
+import { ChatsService, isErrorMessage } from '@tt/chats';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { isErrorMessage } from '../../../../chats/src/lib/data/interfaces/type-guards';
 import { AuthService } from '@tt/auth';
+import { SubscriberCardComponent } from './susbscriber-card/subscriber-card.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -68,10 +67,11 @@ export class SidebarComponent implements OnInit {
 
   constructor() {
     this.#chatService.connectWS().pipe(takeUntilDestroyed()).subscribe();
+    firstValueFrom(this.profileService.getMe());
   }
 
   ngOnInit() {
-    firstValueFrom(this.profileService.getMe());
+    // firstValueFrom(this.profileService.getMe());
     this.connectWs();
   }
 

@@ -6,11 +6,10 @@ import {
   Output,
   Renderer2,
 } from '@angular/core';
-import { ProfileService } from '../../../../../profile/src/lib/data/services/profile.service';
-import { AvatarCircleComponent } from '../../../../../common-ui/src/lib/components/avatar-circle/avatar-circle.component';
 import { FormsModule } from '@angular/forms';
-import { SvgIconComponent } from '../../../../../common-ui/src/lib/components/svg-icon/svg-icon.component';
 import { CommonModule } from '@angular/common';
+import { AvatarCircleComponent, SvgIconComponent } from '@tt/common-ui';
+import { ProfileService } from '@tt/profile';
 
 @Component({
   selector: 'app-message-input',

@@ -8,7 +8,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, startWith } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
-import { profileActions } from '../../data';
+import { profileActions, selectProfileFilters } from '../../data';
 
 @Component({
   selector: 'app-profile-filters',
@@ -18,7 +18,7 @@ import { profileActions } from '../../data';
   styleUrl: './profile-filters.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileFiltersComponent implements OnInit {
+export class ProfileFiltersComponent {
   fb = inject(FormBuilder);
   store = inject(Store);
 
@@ -32,18 +32,18 @@ export class ProfileFiltersComponent implements OnInit {
     this.searchForm.valueChanges
       .pipe(startWith({}), debounceTime(300), takeUntilDestroyed())
       .subscribe((formValue) => {
-        localStorage.setItem('filters', JSON.stringify(formValue));
+        // localStorage.setItem('filters', JSON.stringify(formValue));
         this.store.dispatch(
           profileActions.filterEvents({ filters: formValue }),
         );
       });
   }
 
-  ngOnInit() {
-    const saveValueInput = localStorage.getItem('filters');
-    if (saveValueInput) {
-      const filters = JSON.parse(saveValueInput);
-      this.searchForm.patchValue(filters);
-    }
-  }
+  // ngOnInit() {
+  //   const saveValueInput = localStorage.getItem('filters');
+  //   if (saveValueInput) {
+  //     const filters = JSON.parse(saveValueInput);
+  //     this.searchForm.patchValue(filters);
+  //   }
+  // }
 }
